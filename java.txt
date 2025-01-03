@@ -319,14 +319,24 @@ public class print {
 6.exception handle
 
 package bmsit;
-public class print {
+
+class A extends Exception {
+    public A(String message) {
+        super(message);
+    }
+}
+
+public class Print {
     public static void main(String[] args) {
         int a = 10, b = 10, result = 0;
-        
+
         try {
+            if (b == 0) {
+                throw new A("Error: Cannot divide by zero.");
+            }
             result = a / b;
-        } catch (ArithmeticException e) {
-            System.out.println("Error: Cannot divide by zero.");
+        } catch (A e) {
+            System.out.println(e.getMessage());
         } finally {
             System.out.println("Done!");
         }
