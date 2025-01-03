@@ -1,0 +1,405 @@
+1.matrix
+
+package bmsit;
+import java.util.Scanner;
+public class matrix {
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Please provide the value of N as a command line argument.");
+            return;
+        }
+        int N = Integer.parseInt(args[0]);
+        int[][] matrix1 = new int[N][N], matrix2 = new int[N][N], result = new int[N][N];
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter elements of first matrix:");
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                matrix1[i][j] = sc.nextInt();
+
+        System.out.println("Enter elements of second matrix:");
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                matrix2[i][j] = sc.nextInt();
+
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                result[i][j] = matrix1[i][j] + matrix2[i][j];
+
+        System.out.println("Resultant matrix:");
+        for (int[] row : result) {
+            for (int val : row)
+                System.out.print(val + " ");
+            System.out.println();
+        }
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------
+2.stack
+
+package bmsit;
+import java.util.Scanner;
+
+//stack class (ss1)
+class ss1 {
+private int top = -1;
+private  int max_size = 10;
+private int[] stack = new int[max_size];
+
+Scanner input = new Scanner(System.in);
+
+public void push() {
+   if (top == (max_size - 1)) 
+       System.out.println("Stack overflow");                                 
+   else {
+       System.out.println("Enter the item to be pushed:");
+       int item = input.nextInt();
+       stack[++top] = item;
+   }
+}
+
+
+public void pop() {
+   if (top == -1) 
+       System.out.println("Stack underflow");
+    else {
+       int item = stack[top--];
+       System.out.println("Popped element: " + item);
+   }
+}
+
+
+public void display() {
+   if (top == -1) 
+       System.out.println("Stack is empty ");
+    else {
+       System.out.println("elements are: ");
+       for (int i = top; i >= 0; i--) {
+           System.out.printf("%d  ", stack[i]);
+       }
+       System.out.println();                                             
+   }
+}
+}
+
+public class print {
+
+	public static void main(String[] args) {
+	ss1 stack1 = new ss1();                                                                        
+      Scanner input = new Scanner(System.in);
+      int choice;
+
+      while (true) {
+          System.out.println("1. Push  2. Pop  3. Display  4. Quit");
+          System.out.println("Enter your choice: ");
+
+          choice = input.nextInt();
+          switch (choice) {
+              case 1:
+                  stack1.push();
+                  break;
+              case 2:
+                  stack1.pop();
+                  break;
+              case 3:
+                  stack1.display();
+                  break;
+              case 4:
+                  System.out.println("Exiting...");
+                  input.close();
+                  System.exit(0);                                               
+              default:  
+                  System.out.println("Wrong choice! ");
+                  
+          }
+          
+      }
+
+  }
+  
+}
+
+------------------------------------------------------------------------------------------------
+3.polymorphism
+
+package bmsit;
+
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a shape!");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a shape!");
+    }
+
+    public double area() {
+        return 0;
+    }
+}
+
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a circle!");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a circle!");
+    }
+
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Triangle extends Shape {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a triangle!");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a triangle!");
+    }
+
+    public double area() {
+        return 0.5 * base * height;
+    }
+}
+
+class Square extends Shape {
+    private double side;
+
+    public Square(double side) {
+        this.side = side;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a square!");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a square!");
+    }
+
+    public double area() {
+        return side * side;
+    }
+}
+
+public class print {
+    public static void main(String[] args) {
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Circle(5);
+        shapes[1] = new Triangle(4, 3);
+        shapes[2] = new Square(2);
+
+        for (Shape shape : shapes) {
+            shape.draw();
+            System.out.println("Area: " + shape.area());
+            shape.erase();
+            System.out.println();
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------
+4.abstract class shape
+
+package bmsit;
+abstract class Shape {
+    abstract double area(); 
+    abstract double perimeter(); 
+}
+
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    double area() {
+        return Math.PI * radius * radius;
+    }
+
+    double perimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+class Triangle extends Shape {
+    private double a, b, c, height;
+
+    public Triangle(double a, double b, double c, double height) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.height = height;
+    }
+
+    double area() {
+        return (b * height) / 2;
+    }
+
+    double perimeter() {
+        return a + b + c;
+    }
+}
+
+public class print {
+    public static void main(String[] args) {
+        Shape circle = new Circle(5.0);
+        System.out.println("Area of Circle: " + circle.area());
+        System.out.println("Perimeter of Circle: " + circle.perimeter());
+
+        Shape triangle = new Triangle(2.0, 4.0, 3.0, 5.0);
+        System.out.println("Area of Triangle: " + triangle.area());
+        System.out.println("Perimeter of Triangle: " + triangle.perimeter());
+    }
+}
+
+--------------------------------------------------------------------------------------------------
+5.interface resiazable
+
+package bmsit;
+interface Resizable {
+    void resizeWidth(int width);
+    void resizeHeight(int height);
+}
+
+class Rectangle implements Resizable {
+    private int width;
+    private int height;
+
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public void resizeWidth(int width) {
+        this.width = width;
+    }
+
+    public void resizeHeight(int height) {
+        this.height = height;
+    }
+
+    public void printSize() {
+        System.out.println("Width: " + width + ", Height: " + height);
+    }
+}
+
+public class print {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle(100, 150);
+        rectangle.printSize();
+        
+        rectangle.resizeWidth(150);
+        rectangle.resizeHeight(200);
+        rectangle.printSize();
+    }
+}
+
+---------------------------------------------------------------------------------------------------------
+6.exception handle
+
+package bmsit;
+public class print {
+    public static void main(String[] args) {
+        int a = 10, b = 10, result = 0;
+        
+        try {
+            result = a / b;
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Cannot divide by zero.");
+        } finally {
+            System.out.println("Done!");
+        }
+        System.out.println(result);
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------
+7.multithread
+
+package bmsit;
+class MyRunnable implements Runnable {
+    public void run() {
+        try {
+            System.out.println(Thread.currentThread().getName() + " is running.");
+            Thread.sleep(500);
+            System.out.println(Thread.currentThread().getName() + " has finished.");
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getName() + " was interrupted.");
+        }
+    }
+}
+
+public class print {
+    public static void main(String[] args) {
+        MyRunnable runnable = new MyRunnable();
+        
+        Thread thread1 = new Thread(runnable, "Thread-1");
+        Thread thread2 = new Thread(runnable, "Thread-2");
+        Thread thread3 = new Thread(runnable, "Thread-3");
+        
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------
+8.mythread
+
+package bmsit;
+
+class MyThread extends Thread {
+    public MyThread(String name) {
+        super(name);
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Starting: " + getName());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println(getName() + " interrupted.");
+        }
+        System.out.println("Ending: " + getName());
+    }
+}
+
+public class print {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread("Thread-1");
+        MyThread t2 = new MyThread("Thread-2");
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main interrupted.");
+        }
+        System.out.println("All threads completed.");
+    }
+}
