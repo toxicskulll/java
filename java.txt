@@ -381,34 +381,46 @@ package bmsit;
 class MyThread extends Thread {
     public MyThread(String name) {
         super(name);
+        start();
     }
 
     @Override
     public void run() {
-        System.out.println("Starting: " + getName());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            System.out.println(getName() + " interrupted.");
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(getName() + " - Count: " + i);
+            try {
+                Thread.sleep(500); // Suspend thread for 500 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println(getName() + " interrupted.");
+                break;
+            }
         }
-        System.out.println("Ending: " + getName());
+        System.out.println(getName() + " completed.");
     }
 }
 
-public class print {
+public class ThreadDemo {
     public static void main(String[] args) {
-        MyThread t1 = new MyThread("Thread-1");
-        MyThread t2 = new MyThread("Thread-2");
+        System.out.println("Main thread starts.");
 
-        t1.start();
-        t2.start();
+        MyThread thread = new MyThread("Child Thread");
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Main Thread - Count: " + i);
+            try {
+                Thread.sleep(500); // Suspend main thread for 500 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println("Main thread interrupted.");
+                break;
+            }
+        }
 
         try {
-            t1.join();
-            t2.join();
+            thread.join();
         } catch (InterruptedException e) {
-            System.out.println("Main interrupted.");
+            System.out.println("Main thread interrupted.");
         }
-        System.out.println("All threads completed.");
+
+        System.out.println("Main thread completed.");
     }
 }
