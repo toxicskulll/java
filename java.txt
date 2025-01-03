@@ -41,7 +41,6 @@ public class matrix {
 package bmsit;
 import java.util.Scanner;
 
-//stack class (ss1)
 class ss1 {
 private int top = -1;
 private  int max_size = 10;
